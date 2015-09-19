@@ -1,31 +1,55 @@
 ## Synopsis
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+Simple utility to sort a list of objects on its (simple) properties.
 
 ## Code Example
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+A working code sample is provided in the ListSorterTest.java file. The object to sort is in SampleObject.java.
+
+Quick Code
+
+        List sortOnKeys = new ArrayList<String>();
+        sortOnKeys.add("firstName");
+        sortOnKeys.add("age");
+        // As many as there are simple properties (Long/Short/Double/Integer/Float/Byte/String/Date/Boolean) including primitives
+
+        ListSorter listSorter = new ListSorter();
+        List sortedList = (List<SampleObject>) listSorter.sortList(listToSort, sortOnKeys);
 
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+I couldn't find an easy way to sort a list of (unknown) objects on different properties, one after the other. So I ended up writing my own using Version 8 lambda functions.
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+Samples are in the ListSorterTest.java file. A simple object is also provided to show how it sorts.
 
 ## API Reference
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+It uses reflection to find if the object contains a getter method. If there are no getters, it uses the field to get the data.
 
 ## Tests
 
-Describe and show how to run the tests with code examples.
+Use ListSorterTest.java and SampleObject.java to test the code.
 
 ## Contributors
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+If you find any defects in this code, please create an issue in GIT and if you can provide some sample it would be helpful.
 
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+Apache 2.0
+
+Copyright [2015] [Shriram Mani, Ironpillars, Inc.]
+
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
