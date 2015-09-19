@@ -40,7 +40,7 @@ If you find any defects in this code, please create an issue in GIT and if you c
 
 Apache 2.0
 
-Copyright [2015] [Shriram Mani, Ironpillars, Inc.]
+Copyright 2015 Shriram Mani, Ironpillars, Inc.
 
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
