@@ -8,7 +8,7 @@ A working code sample is provided in the ListSorterTest.java file. The object to
 
 Quick Code
 ```
-        public static void sortListofObjects(List<Person> listToSort) {
+    public static void sortListofObjects(List<Person> listToSort) {
 
         SortKeys sortKeys = new SortKeys();
         sortKeys.addField("firstName")
