@@ -1,6 +1,6 @@
 ## Synopsis
 
-Simple java utility to sort a List/ArrayList of objects on its properties. Properties can be of any of the common types. Multiple properties can be chained to sort at a same time.
+Simple java utility to sort a List/ArrayList of objects on its properties. Properties can be of any of the common types. Multiple properties can be chained to sort at a same time. Needs Java 8 and above.
 
 ## Code Example
 
@@ -8,14 +8,24 @@ A working code sample is provided in the ListSorterTest.java file. The object to
 
 Quick Code
 
-        List sortOnKeys = new ArrayList<String>();
-        sortOnKeys.add("firstName");
-        sortOnKeys.add("age");
-        // As many as there are simple properties (Long/Short/Double/Integer/Float/Byte/String/Date/Boolean) including primitives
+        public static void sortListofObjects(List<Person> listToSort) {
 
+        SortKeys sortKeys = new SortKeys();
+        sortKeys.addField("firstName")
+                .addField("age", true); // This (true) will sort the age descending
+
+        // Other ways to specify a property to the sorter are
+        //      .addField("lastName", String.class);
+        //      .addField("dob", Date.class, true);
+
+        // Instantiate a ListSorter
         ListSorter listSorter = new ListSorter();
-        List sortedList = (List<SampleObject>) listSorter.sortList(listToSort, sortOnKeys);
 
+        // Pass the data to sort (listToSort) and the "by keys" to sort (sortKeys)
+        List sortedList = (List<Person>) listSorter.sortList(listToSort, sortKeys);
+
+        System.out.println("Sorted List:\n" + sortedList);
+    }
 ## Motivation
 
 I couldn't find an easy way to sort a list of (unknown) objects on different properties, one after the other. So I ended up writing my own using Version 8 lambda functions.
