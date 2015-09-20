@@ -1,6 +1,6 @@
 ## Motivation
 
-As a developer/architect I feel it makes ones life easier when I have the right tool for the right job. Also it helps in speeding up the job at hand and to move on to the next. Of course there are umpteen number of utilities out there. But over the course I have found that some of these tools lack the simplest thing you would like to achieve or cumbersome to setup or the tools will be so heavy duty, it feels like using a bazooka to shoot down a mosquito. Hence I ended up writing my own utilities, which might achieve the same as other utilities but from a different perspective. Here is a collection of such utilities, I would like to share with the community. If interested for more, please drop me a note.
+As a developer/architect I feel it makes ones life easier when you have the right tool for the right job. Also it helps in speeding up the job at hand and to move on to the next. Of course there are umpteen number of utilities out there. But over the course I have found that some of these tools lack the simplest thing you would like to achieve or cumbersome to setup or the tools will be so heavy duty, it feels like using a bazooka to shoot down a mosquito. Hence I ended up writing my own utilities, which might achieve the same as other utilities but from a different perspective. Here is a collection of such utilities, I would like to share with the community. If interested for more, please drop me a note.
 
 
 ## Contributors
