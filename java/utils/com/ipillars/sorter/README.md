@@ -29,7 +29,7 @@ Quick Code
 ```
 ## Motivation
 
-I couldn't find an easy way to sort a list of (unknown) objects on different properties, one after the other. So I ended up writing my own using Version 8 lambda functions.
+I couldn't find an easy way to sort a list of (unknown) objects on different properties, one after the other. So I ended up writing my own.
 
 ## Installation
 
