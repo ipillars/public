@@ -1,6 +1,6 @@
 ## Synopsis
 
-Simple utility to sort a list of objects on its (simple) properties.
+Simple java utility to sort a List/ArrayList of objects on its properties. Properties can be of any of the common types. Multiple properties can be chained to sort at a same time.
 
 ## Code Example
 
