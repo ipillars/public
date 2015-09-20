@@ -16,7 +16,6 @@ Copyright 2015 Shriram Mani, Ironpillars, Inc.
 package com.ipillars.sorter;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,45 +23,50 @@ import java.util.List;
  */
 public class ListSorterTest {
 
-    public static void main(String[] args) {
+    public static void sortListofObjects(List<Person> listToSort) {
 
-        // Multiple Key Sorting
-        sortMultipleKeys();
-    }
+        SortKeys sortKeys = new SortKeys();
+        sortKeys.addField("firstName")
+                .addField("age", true);      // This (true) will sort the age descending because the second property is true
 
-    public static void sortMultipleKeys() {
+        // Other ways to specify a property to the sorter are
+        //      .addField("lastName", String.class);
+        //      .addField("lastName", String.class, true);
 
-        // This returns the list of objects of type Sample Object.
-        List<SampleObject> listToSort = buildData();
-
-        List sortOnKeys = new ArrayList<String>();
-        sortOnKeys.add("firstName");
-        sortOnKeys.add("age");
-        // Add as many as there are in the object
-        //sortOnKeys.add("lastName");
-
+        // Instantiate a ListSorter
         ListSorter listSorter = new ListSorter();
-        List sortedList = (List<SampleObject>) listSorter.sortList(listToSort, sortOnKeys);
+
+        // Pas the data to sort (listToSort) and by the keys to sort (sortKeys)
+        List sortedList = (List<Person>) listSorter.sortList(listToSort, sortKeys);
 
         System.out.println("Sorted List:\n" + sortedList);
     }
 
+    public static void main(String[] args) {
+
+        // This returns the sample list of objects of type Person
+        List<Person> listToSort = buildData();
+
+        // Multiple Key Sorting
+        sortListofObjects(listToSort);
+    }
+
     public static List buildData() {
 
-        List<SampleObject> sampleList = new ArrayList<SampleObject>();
+        List<Person> personList = new ArrayList<Person>();
 
-        sampleList = new ArrayList<SampleObject>();
+        personList = new ArrayList<Person>();
 
-        sampleList.add(new SampleObject("John1", "Chain", 25, true));
-        sampleList.add(new SampleObject("John1", "Beach", 36, true));
-        sampleList.add(new SampleObject("John2", "Balloon", 12, true));
-        sampleList.add(new SampleObject("John2", "Brake", 67, false));
-        sampleList.add(new SampleObject("Jane1", "Wheel", 24, true));
-        sampleList.add(new SampleObject("Jane1", "Carburator", 18, true));
-        sampleList.add(new SampleObject("Jane1", "Engine", 30, true));
-        sampleList.add(new SampleObject("Jane2", "Doe", 19, true));
-        sampleList.add(new SampleObject("Jane2", "Cycle", 42, false));
+        personList.add(new Person("John1", "Chain", 25, true));
+        personList.add(new Person("John1", "Beach", 36, true));
+        personList.add(new Person("John2", "Balloon", 12, true));
+        personList.add(new Person("John2", "Brake", 67, false));
+        personList.add(new Person("Jane1", "Wheel", 24, true));
+        personList.add(new Person("Jane1", "Carburator", 18, true));
+        personList.add(new Person("Jane1", "Engine", 30, true));
+        personList.add(new Person("Jane2", "Doe", 19, true));
+        personList.add(new Person("Jane2", "Cycle", 42, false));
 
-        return sampleList;
+        return personList;
     }
 }

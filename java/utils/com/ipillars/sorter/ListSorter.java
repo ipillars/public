@@ -28,7 +28,28 @@ import java.util.*;
  */
 public class ListSorter {
 
+    /**
+     * Sort a list of objects, on the fieldNames (Properties) defined
+     * @param list - List of objects (POJO)
+     * @param fieldNames - Array List of property names to sort by
+     * @return List of sorted objects
+     */
     public List sortList(List list, List<String> fieldNames) {
+
+        SortKeys sortKeys = new SortKeys();
+
+        fieldNames.forEach((String fieldName) -> sortKeys.addField(fieldName));
+
+        return sortList(list, sortKeys);
+    }
+
+    /**
+     * Sort a list of objects, on the fieldNames (Properties) defined
+     * @param list - List of objects (POJO)
+     * @param sortKeys - SortKeys is a special object, which can be used to tell the sorter, if a property should be sorted in descending order or to specify the class type of the property
+     * @return List of sorted objects
+     */
+    public List sortList(List list, SortKeys sortKeys) {
 
         List retval = null;
 
@@ -40,10 +61,12 @@ public class ListSorter {
         Integer recNo = 0;
         for (Object object : list) {
 
-            List sortingKeys = new ArrayList<>();
+            List sortValues = new ArrayList<>();
 
             // Loop through the field names to sort by and sort at each stage
-            for (String fieldName : fieldNames) {
+            for (SortField sortField : sortKeys.getSortFields()) {
+
+                String fieldName = sortField.getFieldName();
 
                 Boolean useGetter = false, useField = false;
                 Method getterMethod = null;
@@ -97,9 +120,9 @@ public class ListSorter {
 
                 try {
                     if (useGetter) {
-                        sortingKeys.add(getterMethod.invoke(object));
+                        sortValues.add(getterMethod.invoke(object));
                     } else if (useField) {
-                        sortingKeys.add(valueField.get(object));
+                        sortValues.add(valueField.get(object));
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -108,9 +131,10 @@ public class ListSorter {
                 }
             }
 
-            sortHelper.addObjectsToSort(recNo++, sortingKeys);
+            sortHelper.addObjectsToSort(recNo++, sortValues);
         }
 
+        sortHelper.setSortKeys(sortKeys);
         sortHelper.sort();
 
         if (retval == null) {

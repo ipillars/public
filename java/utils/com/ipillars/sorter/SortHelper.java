@@ -71,6 +71,11 @@ public class SortHelper {
 
     // Rows (List of records) with index in the list and a list of columns (data) to sort
     private List<Record> rows;
+
+    // Keys (Names + Optionally descending flag + Optionally data type) on which the object is sorted
+    private SortKeys sortKeys;
+
+    // Result from the sort is a stream
     private Stream<Record> resultStream;
 
     private boolean dataSorted = false;
@@ -102,18 +107,44 @@ public class SortHelper {
             throw new RuntimeException("List is empty. Nothing to sort");
         }
 
+        // Make sure the columns to sort on are set along with their class type
+        if (sortKeys == null || sortKeys.getSortFields().isEmpty()) {
+
+            buildSortKeysFromFirstRecord();
+
+            if (sortKeys == null) {
+                throw new RuntimeException("Cannot Sort without the Sort keys");
+            }
+        }
+
         // Create a chained comparator with all the data elements to compare
         Comparator<Record> finalComparator = null;
 
         // Build the comparators to compare and do the actual sorting at the end
-        int index = 0;
-        for (Object firstValueToSort : rows.get(0).getColumns()) {
 
-            // Get the class type from the first element
-            Class aClass = firstValueToSort.getClass();
+        // Determine the data type for each key columns
+        int index = 0;
+        for (SortField sortField : sortKeys.getSortFields()) {
+
+            // Get the class type from the first element, if caller didn't provide the classType
+            if (sortField.getFieldClass() == null) {
+                if (rows == null || rows.isEmpty()) {
+                    throw new RuntimeException("There are no rows in the list to sort");
+                } else if (rows.get(0).getColumns().size() <= index) {
+                    throw new RuntimeException("There are more sort keys specified, which is more than the sort data provided");
+                } else {
+                    // Store the class type back to the SortField object so that it can be used later
+                    sortField.setFieldClass(rows.get(0).getColumns().get(index).getClass());
+                }
+            }
 
             // Get the comparator based on the data type
-            Comparator<Record> comparator = findComparator(aClass, index++);
+            Comparator<Record> comparator = findComparator(sortField.getFieldClass(), index);
+
+            // Check if the sort order should be reversed. True means reversed
+            if (sortField.getDescending() != null && sortField.getDescending() == Boolean.TRUE) {
+                comparator = comparator.reversed();
+            }
 
             // Keep appending the comparator to the final Comparator
             if (finalComparator == null) {
@@ -122,6 +153,7 @@ public class SortHelper {
                 // Append the comparator one after the other
                 finalComparator = finalComparator.thenComparing(comparator);
             }
+            index++;
         }
 
         // Sort with the aggregated comparator and get the resulting stream
@@ -263,6 +295,33 @@ public class SortHelper {
         Comparator<Record> retval = (object1, object2) -> ((Date) object1.getColumns().get(index)).compareTo(
                         (Date) object2.getColumns().get(index));
         return retval;
+    }
+
+    /**
+     * Depending on the number of columns it will create a list of keys with some fake name.
+     * Also the method determines the class type of the data
+     */
+    private void buildSortKeysFromFirstRecord() {
+
+        if (sortKeys == null) {
+            sortKeys = new SortKeys();
+        }
+
+        int index = 0;
+        for (Object firstValueToSort : rows.get(0).getColumns()) {
+            // Get the class type from the first element
+            Class aClass = firstValueToSort.getClass();
+            sortKeys.addField("Column" + index++, aClass);
+
+        }
+    }
+
+    /**
+     * Sort key information (name of the field, Class type of the field and descending indicator)
+     * @param sortKeys
+     */
+    public void setSortKeys(SortKeys sortKeys) {
+        this.sortKeys = sortKeys;
     }
 
     public void dumpDataList() {

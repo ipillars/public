@@ -1,24 +1,11 @@
-/*
-Copyright 2015 Shriram Mani, Ironpillars, Inc.
-
-        Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-        Unless required by applicable law or agreed to in writing, software
-        distributed under the License is distributed on an "AS IS" BASIS,
-        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        See the License for the specific language governing permissions and
-        limitations under the License.
-*/
 package com.ipillars.sorter;
+
+import java.util.Date;
 
 /**
  * Created by Shriram Mani, Ironpillars, Inc on 04/09/2015.
  */
-public class SampleObject {
+public class Person {
 
     public static final String STATIC_FINAL_STRING_VALUE = "Pura";
     public static String someStaticValue = "Vida";
@@ -26,26 +13,34 @@ public class SampleObject {
     private String firstName;
     protected String lastName;
     private int age;
+    private Date dob;
     private boolean human;
 
-    public SampleObject() {}
+    public Person() {}
 
-    public SampleObject(String firstName, String lastName, int age, boolean human) {
+    public Person(String firstName, String lastName, int age, boolean human) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.human = human;
     }
 
+    public Person(String firstName, String lastName, int age, Date dob, boolean human) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.dob = dob;
+        this.human = human;
+    }
+
     @Override
     public String toString() {
-        return "SampleObject{" +
+        return "Person{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
+                ", dob=" + dob +
                 ", human=" + human +
-                ", someStaticValue=" + someStaticValue +
-                ", STATIC_FINAL_STRING_VALUE=" + STATIC_FINAL_STRING_VALUE +
                 '}';
     }
 
@@ -71,6 +66,14 @@ public class SampleObject {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public boolean isHuman() {
