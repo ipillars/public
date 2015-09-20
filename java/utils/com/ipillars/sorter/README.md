@@ -7,7 +7,7 @@ Simple java utility to sort a List/ArrayList of objects on its properties. Prope
 A working code sample is provided in the ListSorterTest.java file. The object to sort is in SampleObject.java.
 
 Quick Code
-
+```
         public static void sortListofObjects(List<Person> listToSort) {
 
         SortKeys sortKeys = new SortKeys();
@@ -26,6 +26,7 @@ Quick Code
 
         System.out.println("Sorted List:\n" + sortedList);
     }
+```
 ## Motivation
 
 I couldn't find an easy way to sort a list of (unknown) objects on different properties, one after the other. So I ended up writing my own using Version 8 lambda functions.
