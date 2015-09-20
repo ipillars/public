@@ -100,8 +100,6 @@ public class SortHelper {
      */
     public void sort() {
 
-        dumpDataList();
-
         // Check if the list is empty before sorting
         if (rows == null || rows.isEmpty()) {
             throw new RuntimeException("List is empty. Nothing to sort");
